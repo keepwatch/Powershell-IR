@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+     config.vm.define "ps2" do |win1|
+        win1.vm.box = "thealanberman/win7ie11"
+        win1.vm.box_version = "1.0.0"
+        win1.vm.hostname = "ps2"
+        win1.vm.communicator = "winrm"
+        win1.winrm.username = "vagrant"
+        win1.winrm.password = "vagrant"
+        win1.vm.network "private_network",ip: "172.16.11.11",virtualbox__intnet: "lr-test"
+        win1.vm.provision "file", source: "winpmem-2.1.post4.exe", destination: "C:/tmp/winpmem-2.1.post4.exe"
+        win1.vm.provider "virtualbox" do |vb|
+            vb.memory = 1024
+            vb.cpus = 1
+            vb.gui = false
+        end
+    end
+    config.vm.define "ps4" do |win2|
+        win2.vm.box = "thezecke11/windows_7"
+        win2.vm.hostname = "ps4"
+        win2.vm.communicator = "winrm"
+        win2.winrm.username = "vagrant"
+        win2.winrm.password = "vagrant"
+        win2.vm.network "private_network",ip: "172.16.11.12",virtualbox__intnet: "lr-test"
+        win2.vm.provision "file", source: "winpmem-2.1.post4.exe", destination: "C:/tmp/winpmem-2.1.post4.exe"
+        win2.vm.provider "virtualbox" do |vb|
+            vb.memory = 1024
+            vb.cpus = 1
+        end
+    end
+    config.vm.define "ps5" do |win3|
+        win3.vm.box = "StefanScherer/windows_10"
+        win3.vm.hostname = "ps5"
+        win3.vm.communicator = "winrm"
+        win3.winrm.username = "vagrant"
+        win3.winrm.password = "vagrant"
+        win3.vm.network "private_network",ip: "172.16.11.13",virtualbox__intnet: "lr-test"
+        win3.vm.provision "file", source: "winpmem-2.1.post4.exe", destination: "C:/tmp/winpmem-2.1.post4.exe"
+        win3.vm.provider "virtualbox" do |vb|
+            vb.memory = 1024
+            vb.cpus = 1
+            vb.gui = false
+        end
+    end
+end
